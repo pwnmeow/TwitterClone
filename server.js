@@ -4,8 +4,13 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const hbs = require('hbs');
 const expresshbs = require('express-handlebars');
-
+const config = require('./config/secret');
 const app = express();
+
+mongoose.connect(config.database, function(err){
+    if(err) console.log(err);
+    console.log("connected to database");
+});
 
 app.engine('.hbs', expresshbs({defaultLayout: 'layout', extname: '.hbs'}));
 app.set('view engine','hbs');
